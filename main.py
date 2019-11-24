@@ -1,20 +1,18 @@
 #!/usr/bin/env python
 # -*- coding:utf-8
 
+import os
 from flask import Flask
 from flask import request
 from flask import url_for
-from flask import render_template
 from image import generate_image
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    return render_template('index.html')
+server_url = 'https://nicolerobin.top/'
+static_dir = '/data/static/'
 
-@app.route('/image_holder', methods=['POST'])
-@app.route('/image_holder/<image_path>', methods=['GET'])
+@app.route('/cgi-bin/image_holder', methods=['POST'])
 def image_holder():
     if request.method == 'GET':
         pass
@@ -30,9 +28,12 @@ def image_holder():
         height = request_json['height']
         width = request_json['width']
         color = request_json['color']
-        image_path = generate_image(image_type, height, width, color)
+        image_path = generate_image(static_dir, image_type, height, width, color)
+        print('image_path:' + image_path)
+        image_url = image_path.replace(static_dir, server_url)
+        print('image_url:' + image_url)
         return {
-            'image_url':url_for('static', filename=image_path)
+            'image_url':image_url
         }
     else:
         return 'No support method'
