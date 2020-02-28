@@ -29,11 +29,12 @@ def generate_image(static_dir, image_type, width, height, color):
     image_name = '%sx%s_%s.%s' % (width, height, int(time.time()), image_type)
     image_path = os.path.join(image_dir, image_name)
 
-    font = ImageFont.truetype('./font/consola.ttf', 36)
+    font = ImageFont.truetype('./font/consola.ttf', 96)
     draw = ImageDraw.Draw(image)
-    mark_content = "nicojwzhang"
+    # mark_content = "nicojwzhang"
+    mark_content = '{width}x{height}'.format(width=width, height=height)
     for i, ch in enumerate(mark_content):
-        draw.text((20*i + 10, 10), ch, font=font, fill=rndColor())
+        draw.text((60*i + 10, 10), ch, font=font, fill=rndColor())
 
     image.save(image_path)
 

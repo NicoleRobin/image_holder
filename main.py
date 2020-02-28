@@ -2,13 +2,15 @@
 # -*- coding:utf-8
 
 import os
+
+
 from flask import Flask
 from flask import request
 from flask import url_for
 from image import generate_image
 
-app = Flask(__name__)
 
+app = Flask(__name__)
 server_url = 'https://nicolerobin.top/'
 static_dir = '/data/static/'
 
